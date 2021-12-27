@@ -23,9 +23,9 @@ public class FileStore {
 
     public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
         List<UploadFile> storeFileResult = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles) {
-            if (!multipartFile.isEmpty()) {
-                storeFileResult.add(storeFile(multipartFile));
+        for (MultipartFile multipartFile : multipartFiles) {        //다중파일 저장할때
+            if (!multipartFile.isEmpty()) {         //비어있지않으면
+                storeFileResult.add(storeFile(multipartFile));      //추가
             }
         }
         return storeFileResult;
@@ -36,7 +36,7 @@ public class FileStore {
             return null;
         }
 
-        String originalFilename = multipartFile.getOriginalFilename();
+        String originalFilename = multipartFile.getOriginalFilename();      //originalfilename얻기
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
         return new UploadFile(originalFilename, storeFileName);
